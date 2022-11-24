@@ -3,7 +3,6 @@
 import os
 import boto3
 
-# =====================================================================================
 # parametros do job
 
 profile_aws = 'datalake-development'
@@ -17,14 +16,13 @@ max_concurrent_runs = 2
 
 
 # bucket aonde o arquivo deve ser salvo
-my_bucket = 'iugu-di-scripts'
+my_bucket = 'buket'
 
 # pasta do bucket aonde o arquivo deve ser salvo
 # (caso fique em branco sera salvo na raiz)
 
 my_bucket_path = ''
 
-# =====================================================================================
 # DefaultArguments
 
 # link para additional_python_modules https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-libraries.html
@@ -36,13 +34,11 @@ conf = 'spark.sql.legacy.parquet.int96RebaseModeInRead=CORRECTED --conf spark.sq
 # pasta com as libs de python ou def
 extra_py_files = 's3://bucket/lib/location_s3.py,s3://bucket/lib/glue_python_libs-0.1-py3-none-any.whl'
 
-# =====================================================================================
 
 # iniciando boto3
 
 session = boto3.Session(profile_name=f'{profile_aws}')
 
-# =====================================================================================
 
 extensao = '.py'
 
@@ -63,7 +59,6 @@ files_py = []
 for file in files_current_dir:
     if extensao in file and file != current_file:
         files_py.append(file)
-# =====================================================================================
 
 # Listando jobs do glue
 
@@ -80,7 +75,6 @@ print('Jobs listados')
 # list_jobs = [] # caso precise reescrever os jobs descomentar essa linha
 
 
-# =====================================================================================
 s3_iugu = session.resource('s3')
 glue = session.client('glue')
 for file in files_py:
