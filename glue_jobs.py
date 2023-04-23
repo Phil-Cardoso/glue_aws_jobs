@@ -15,7 +15,7 @@ max_concurrent_runs = 2
 
 
 # bucket aonde o arquivo deve ser salvo
-my_bucket = 'iugu-di-scripts'
+my_bucket = ''
 
 # pasta do bucket aonde o arquivo deve ser salvo
 # (caso fique em branco sera salvo na raiz)
@@ -79,13 +79,13 @@ print('Jobs listados')
 
 
 # =====================================================================================
-s3_iugu = session.resource('s3')
+s3 = session.resource('s3')
 glue = session.client('glue')
 for file in files_py:
 
     if str(file).replace('.py', '') not in 'upload' or str(file).replace('.py', '') not in 'Excel':
         print(file)
-        s3_iugu.meta.client.upload_file(
+        s3.meta.client.upload_file(
             f'{file_path}{file}', my_bucket_path+my_bucket, file)
 
         # Criando novo job caso nao exista
